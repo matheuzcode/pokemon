@@ -1,3 +1,4 @@
+
 export class PokemonModel {
     id: number
     name: string
@@ -5,7 +6,7 @@ export class PokemonModel {
     height: number
     abilities: any[]
     types: string
-
+    sprites: Record<string,any>
 
     constructor(
         id: number,
@@ -14,6 +15,7 @@ export class PokemonModel {
         height: number,
         abilities: any[],
         types: string,
+        sprites: Record<string,any>
 
     ){
         this.id = id;
@@ -22,10 +24,7 @@ export class PokemonModel {
         this.height = height;
         this.abilities = abilities;
         this.types = types;
-    }
-
-    delete(){
-        console.log(`item deletado ${this.name}`)
+        this.sprites = sprites
     }
 
 }

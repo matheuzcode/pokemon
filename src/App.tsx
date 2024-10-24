@@ -10,7 +10,7 @@ import { PokemonModel } from './model/Pokemon'
 export function App() {
 
   const [pokemons, setPokemons] = useState<PokemonModel[] | null>(null)
-  
+
 
   const getPokemon = async () => {
     try {
@@ -29,7 +29,8 @@ export function App() {
             promise.data.weight,
             promise.data.height,
             promise.data.abilities,
-            promise.data.types
+            promise.data.types,
+            promise.data.sprites
           ))
         setPokemons(pokemonList)
       } else {
@@ -44,21 +45,25 @@ export function App() {
     getPokemon()
   }, [])
 
-  const handleDelete = (pokemon:PokemonModel) => {
-    pokemon.delete()
-  }
+  const handleDelete = (pokemon: PokemonModel) => {
 
+  }
+  console.log(pokemons)
   return (
     <div className='flex flex-wrap'>
       {
-        pokemons?.map((pokemon) => (
-          <div className='p-3 ' key={pokemon.id}>
-            <div>name: {pokemon.name}</div>
-            <div>weight: {pokemon.weight}</div>
-            <div>height: {pokemon.height}</div>
-            <button className='bg-red-500 p-0.5' onClick={() => handleDelete(pokemon)}>DELETE</button>
-          </div>
-        ))
+        pokemons?.map((pokemon) => {
+          console.log(pokemon)
+          return (
+            <div className='p-3 border-2' key={pokemon.id}>
+              <img src={pokemon.sprites.front_default} alt="" width={300} height={300} />
+              <div>name: {pokemon.name}</div>
+              <div>weight: {pokemon.weight}</div>
+              <div>height: {pokemon.height}</div>
+              <button className='bg-red-500 p-0.5' onClick={() => handleDelete(pokemon)}>DELETE</button>
+            </div>
+          )
+        })
       }
     </div>
   )
