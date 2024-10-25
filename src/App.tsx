@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react'
 import { axiosApi } from './services/api'
-import { Pokemon, PokemonPops } from './component/Pokemon'
 import { PokemonModel } from './model/Pokemon'
-
-
-
-
+import { handleDelete } from './controller/pokemonController'
 
 export function App() {
 
@@ -45,22 +41,24 @@ export function App() {
     getPokemon()
   }, [])
 
-  const handleDelete = (pokemon: PokemonModel) => {
-
+  const deletePokemon = (pokemon: PokemonModel) => {
+    if(pokemons){
+      const updatedPokemons = handleDelete(pokemons, pokemon)
+      setPokemons(updatedPokemons)
+    }
   }
-  console.log(pokemons)
+ 
   return (
-    <div className='flex flex-wrap'>
+    <div className='flex flex-wrap justify-center gap-8'>
       {
         pokemons?.map((pokemon) => {
-          console.log(pokemon)
           return (
             <div className='p-3 border-2' key={pokemon.id}>
               <img src={pokemon.sprites.front_default} alt="" width={300} height={300} />
               <div>name: {pokemon.name}</div>
               <div>weight: {pokemon.weight}</div>
               <div>height: {pokemon.height}</div>
-              <button className='bg-red-500 p-0.5' onClick={() => handleDelete(pokemon)}>DELETE</button>
+              <button className='bg-red-500 p-0.5' onClick={() => deletePokemon(pokemon)}>DELETE</button>
             </div>
           )
         })
